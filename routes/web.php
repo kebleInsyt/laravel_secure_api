@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -7,6 +8,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//blog routes
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('blog', BlogController::class);
+});
+
+//dashboar route
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
